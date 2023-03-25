@@ -1,5 +1,7 @@
 package com.library.pages;
 
+import com.library.utility.BrowserUtil;
+import com.library.utility.DB_Util;
 import com.library.utility.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -19,6 +21,15 @@ public class DashBoardPage extends BasePage
     public WebElement booksNumber;
 
 
+    public String borrowedBooks(){
+
+        BrowserUtil.waitFor(3);
+
+        System.out.println("actualBooks = " + borrowedBooksNumber.getText());
+
+        return borrowedBooksNumber.getText();
+
+    }
 
 
     public String getModuleCount(String module){
@@ -29,6 +40,18 @@ public class DashBoardPage extends BasePage
         WebElement elementOfModule = Driver.getDriver().findElement(By.xpath(locator));
 
         return elementOfModule.getText();
+    }
+
+
+    public String expectedBooksBorrowed(){
+
+        DB_Util.runQuery("select count(*) from book_borrow where is_returned = 0");
+
+        String expectedBooks = DB_Util.getFirstRowFirstColumn();
+
+        System.out.println("expectedBooks = " + expectedBooks);
+
+        return expectedBooks;
     }
 
 }

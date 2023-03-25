@@ -1,10 +1,13 @@
 package com.library.pages;
 
+import com.library.utility.DB_Util;
 import com.library.utility.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookPage extends BasePage {
@@ -44,10 +47,8 @@ public class BookPage extends BasePage {
     public WebElement categoryDropdown;
 
 
-
     @FindBy(id = "description")
     public WebElement description;
-
 
 
     public WebElement editBook(String book) {
@@ -60,6 +61,34 @@ public class BookPage extends BasePage {
         return Driver.getDriver().findElement(By.xpath(xpath));
     }
 
+    public List<String> actualBookCategories() {
+
+        List<String> actualBookCategories = new ArrayList<>();
+
+        Select select = new Select(mainCategoryElement);
+
+        List<WebElement> list = select.getOptions();
+
+        for (int i = 1; i <= list.size() - 1; i++) {
+
+            actualBookCategories.add(list.get(i).getText());
+        }
+
+        System.out.println("actualBookCategories = " + actualBookCategories);
+
+        return actualBookCategories;
+    }
+
+    public List<String> expectedBookCategories() {
+
+        DB_Util.runQuery("select name from book_categories");
+
+        List<String> expectedBookCategories = DB_Util.getColumnDataAsList("name");
+
+        System.out.println("expectedBookCategories = " + expectedBookCategories);
+
+        return expectedBookCategories;
+    }
 
 
 }
