@@ -121,6 +121,17 @@ public class BookPage extends BasePage {
         return expectedBookInfo;
     }
 
+    public void mostPopularBookQuery(){
+
+        DB_Util.runQuery("select bc.name\n" +
+                "from book_categories bc join books b on bc.id = b.book_category_id\n" +
+                "join book_borrow bb on b.id = bb.book_id\n" +
+                "group by bc.name\n" +
+                "order by count(*) desc\n" +
+                "LIMIT 1");
+
+    }
+
 
 
 }
