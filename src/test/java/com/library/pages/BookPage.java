@@ -15,9 +15,6 @@ public class BookPage extends BasePage {
 
 
 
-    @FindBy (xpath = "//tbody/tr[1]/td")
-    public List<WebElement> tableRowData;
-
     @FindBy(xpath = "//table/tbody/tr")
     public List<WebElement> allRows;
 
@@ -96,11 +93,11 @@ public class BookPage extends BasePage {
         return expectedBookCategories;
     }
 
-    public List<String> actualBookInfo(){
+    public List<String> actualBookInfo(String bookName){
 
         List<String> actualBookInfo = new ArrayList<>();
 
-        actualBookInfo = BrowserUtil.getElementsText(tableRowData);
+        actualBookInfo = BrowserUtil.getElementsText(Driver.getDriver().findElements(By.xpath("//tbody/tr/td[.='"+bookName+"']/../td")));
 
         actualBookInfo.remove(0);
         actualBookInfo.remove(actualBookInfo.size()-1);
@@ -110,11 +107,11 @@ public class BookPage extends BasePage {
         return actualBookInfo;
 
     }
-    public List<String> expectedBookInfo(){
+    public List<String> expectedBookInfo(String bookName){
 
         DB_Util.runQuery("select isbn,books.name,author,book_categories.name,year\n" +
                 "from books join book_categories on books.book_category_id = book_categories.id\n" +
-                "where  books.name = 'Clean Code1'");
+                "where  books.name = '"+bookName+"'");
         List<String> expectedBookInfo = DB_Util.getRowDataAsList(1);
 
         System.out.println("expectedBookInfo = " + expectedBookInfo);
