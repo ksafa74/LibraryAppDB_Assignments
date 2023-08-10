@@ -1,5 +1,6 @@
 package com.library.pages;
 
+import com.library.utility.BrowserUtil;
 import com.library.utility.DB_Util;
 import com.library.utility.Driver;
 import org.openqa.selenium.By;
@@ -11,6 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookPage extends BasePage {
+
+
+
+    @FindBy (xpath = "//tbody/tr[1]/td")
+    public List<WebElement> tableRowData;
 
     @FindBy(xpath = "//table/tbody/tr")
     public List<WebElement> allRows;
@@ -89,6 +95,33 @@ public class BookPage extends BasePage {
 
         return expectedBookCategories;
     }
+
+    public List<String> actualBookInfo(){
+
+        List<String> actualBookInfo = new ArrayList<>();
+
+        actualBookInfo = BrowserUtil.getElementsText(tableRowData);
+
+        actualBookInfo.remove(0);
+        actualBookInfo.remove(actualBookInfo.size()-1);
+
+        System.out.println("actualBookInfo = " + actualBookInfo);
+
+        return actualBookInfo;
+
+    }
+    public List<String> expectedBookInfo(){
+
+        DB_Util.runQuery("select isbn,books.name,author,book_categories.name,year\n" +
+                "from books join book_categories on books.book_category_id = book_categories.id\n" +
+                "where  books.name = 'Clean Code1'");
+        List<String> expectedBookInfo = DB_Util.getRowDataAsList(1);
+
+        System.out.println("expectedBookInfo = " + expectedBookInfo);
+
+        return expectedBookInfo;
+    }
+
 
 
 }
