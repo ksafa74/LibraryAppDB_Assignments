@@ -30,7 +30,11 @@ public class US04_StepDefs {
     public void book_information_must_match_the_database() {
 
 
+<<<<<<< HEAD
         Assert.assertEquals(bookPage.expectedBookInfo(), bookPage.actualBookInfo());
+=======
+        Assert.assertEquals(bookPage.expectedBookInfo(bookName), bookPage.actualBookInfo(bookName));
+>>>>>>> origin/master
 
     }
 
