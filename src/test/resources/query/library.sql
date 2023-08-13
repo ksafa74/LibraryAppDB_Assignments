@@ -21,3 +21,8 @@ group by bc.name
 order by count(*) desc
 LIMIT 1;
 
+
+select b.name, isbn,year, author,bc.name
+from books b join book_categories bc on bc.id = b.book_category_id
+where b.name = 'Head First Java V2.0';
+

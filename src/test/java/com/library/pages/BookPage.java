@@ -11,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class BookPage extends BasePage {
@@ -131,6 +132,18 @@ public class BookPage extends BasePage {
                 "LIMIT 1");
 
     }
+
+    public List<String> actualData(String bookName){
+        String query ="select b.name, isbn,year, author,bc.name\n" +
+                "from books b join book_categories bc on bc.id = b.book_category_id\n" +
+                "where b.name = '"+bookName+"'";
+        DB_Util.runQuery(query);
+        List<String> actualData = DB_Util.getRowDataAsList(1);
+
+        return actualData;
+    }
+
+
 
 
 
