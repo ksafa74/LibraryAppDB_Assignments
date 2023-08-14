@@ -18,6 +18,10 @@ public class BookPage extends BasePage {
 
 
 
+    @FindBy(xpath = "//a[@onclick='Books.borrow_book(14953)']")
+    public WebElement borrowBookButton;
+
+
     @FindBy(xpath = "//table/tbody/tr")
     public List<WebElement> allRows;
 
@@ -142,9 +146,5 @@ public class BookPage extends BasePage {
 
         return actualData;
     }
-
-
-
-
 
 }

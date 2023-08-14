@@ -79,6 +79,7 @@ public class US06_StepDefs {
     public void the_librarian_click_to_save_changes() {
 
         bookPage.saveChanges.click();
+
     }
 
     @Then("verify {string} message is displayed")
