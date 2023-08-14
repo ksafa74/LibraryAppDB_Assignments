@@ -17,6 +17,8 @@ import java.util.List;
 public class BookPage extends BasePage {
 
 
+    public static String booksName;
+
 
     @FindBy(xpath = "//a[@onclick='Books.borrow_book(14953)']")
     public WebElement borrowBookButton;
@@ -145,6 +147,13 @@ public class BookPage extends BasePage {
         List<String> actualData = DB_Util.getRowDataAsList(1);
 
         return actualData;
+    }
+
+    public void userSearches(String bookName){
+
+        search.sendKeys(bookName);
+        this.booksName = bookName;
+
     }
 
 }

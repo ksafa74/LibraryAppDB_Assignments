@@ -8,13 +8,13 @@ import org.junit.Assert;
 
 public class US04_StepDefs {
     BookPage bookPage = new BookPage();
-    String bookName;
+
 
     @When("the user searches for {string} book")
     public void the_user_searches_for_book(String bookName) {
 
-        bookPage.search.sendKeys(bookName);
-        this.bookName = bookName;
+        bookPage.userSearches(bookName);
+
 
     }
 
@@ -22,7 +22,7 @@ public class US04_StepDefs {
     public void the_user_clicks_edit_book_button() {
 
 
-        bookPage.editBook(bookName).click();
+        bookPage.editBook(BookPage.booksName).click();
 
     }
 
@@ -30,7 +30,7 @@ public class US04_StepDefs {
     public void book_information_must_match_the_database() {
 
 
-        Assert.assertEquals(bookPage.expectedBookInfo(bookName), bookPage.actualBookInfo(bookName));
+        Assert.assertEquals(bookPage.expectedBookInfo(BookPage.booksName), bookPage.actualBookInfo(BookPage.booksName));
 
 
     }

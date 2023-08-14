@@ -16,12 +16,7 @@ public class US07_StepDefs {
     BorrowedBooksPage borrowedBooksPage = new BorrowedBooksPage();
 
 
-    @And("the user navigate to {string} page")
-    public void theUserNavigateToPage(String books) {
 
-        bookPage.navigateModule(books);
-
-    }
 
     @When("the user clicks Borrow Book")
     public void the_user_clicks_borrow_book() {
@@ -35,7 +30,7 @@ public class US07_StepDefs {
 
         bookPage.navigateModule(borrowingBook);
 
-        assertTrue(borrowedBooksPage.pageList().contains("OfficeHours"));
+        assertTrue(borrowedBooksPage.pageList().contains(BookPage.booksName));
 
     }
 
